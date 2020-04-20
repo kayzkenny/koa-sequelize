@@ -14,6 +14,7 @@ db.sequelize
   .then(() => console.log("models synced!"))
   .catch((err) => console.log(err));
 
+app.context.db = db;
 app.use(bodyParser());
 app.use(router.routes());
 
