@@ -14,11 +14,7 @@ module.exports = {
           break;
 
         default:
-          ctx.body = await ctx.db.Company.create({
-            name: ctx.request.body.name,
-            city: ctx.request.body.city,
-            address: ctx.request.body.address,
-          });
+          ctx.body = await ctx.db.Company.create({ name, city, address });
           break;
       }
     } catch (error) {
@@ -50,9 +46,7 @@ module.exports = {
   async destroy(ctx) {
     try {
       const result = await ctx.db.Company.destroy({
-        where: {
-          id: ctx.params.id,
-        },
+        where: { id: ctx.params.id },
       });
       !result
         ? ctx.throw(404, "company id not found")
@@ -64,16 +58,12 @@ module.exports = {
   // update one company record
   async update(ctx) {
     try {
+      let { name, city, address } = ctx.request.body;
+
       const result = await ctx.db.Company.update(
+        { name, city, address },
         {
-          name: ctx.request.body.name,
-          city: ctx.request.body.city,
-          address: ctx.request.body.address,
-        },
-        {
-          where: {
-            id: ctx.params.id,
-          },
+          where: { id: ctx.params.id },
         }
       );
       !result
