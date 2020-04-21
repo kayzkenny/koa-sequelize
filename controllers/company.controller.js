@@ -21,12 +21,6 @@ module.exports = {
           });
           break;
       }
-
-      //   ctx.body = await ctx.db.Company.create({
-      //     name: ctx.request.body.name,
-      //     city: ctx.request.body.city,
-      //     address: ctx.request.body.address,
-      //   });
     } catch (error) {
       ctx.throw(500, error);
     }
@@ -48,6 +42,21 @@ module.exports = {
         },
       });
       !company ? ctx.throw(404, "company id not found") : (ctx.body = company);
+    } catch (error) {
+      ctx.throw(500, error);
+    }
+  },
+  // delete one company record
+  async destroy(ctx) {
+    try {
+      const result = await ctx.db.Company.destroy({
+        where: {
+          id: ctx.params.id,
+        },
+      });
+      !result
+        ? ctx.throw(404, "company id not found")
+        : (ctx.body = `company with id: ${ctx.params.id} delete succesfully`);
     } catch (error) {
       ctx.throw(500, error);
     }
