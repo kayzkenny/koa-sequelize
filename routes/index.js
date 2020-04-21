@@ -4,6 +4,7 @@ const {
   CompanyController,
   JobController,
   ApplicationController,
+  UserController,
 } = require("../controllers");
 
 // company routes
@@ -19,5 +20,8 @@ router.get("/jobs", JobController.find);
 
 // application routes
 router.post("/applications", ApplicationController.create);
+
+// user routes
+router.post("/signup", UserController.signup);
 
 module.exports = router;
