@@ -61,4 +61,26 @@ module.exports = {
       ctx.throw(500, error);
     }
   },
+  // update one company record
+  async update(ctx) {
+    try {
+      const result = await ctx.db.Company.update(
+        {
+          name: ctx.request.body.name,
+          city: ctx.request.body.city,
+          address: ctx.request.body.address,
+        },
+        {
+          where: {
+            id: ctx.params.id,
+          },
+        }
+      );
+      !result
+        ? ctx.throw(404, "company id not found")
+        : (ctx.body = `company with id: ${ctx.params.id} updated succesfully`);
+    } catch (error) {
+      ctx.throw(500, error);
+    }
+  },
 };
