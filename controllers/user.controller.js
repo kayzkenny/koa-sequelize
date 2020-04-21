@@ -1,3 +1,5 @@
+const { hashPassword, comparePassword } = require("../services/util.services");
+
 module.exports = {
   async signup(ctx) {
     try {
@@ -11,7 +13,12 @@ module.exports = {
           break;
 
         default:
-          ctx.body = await ctx.db.User.create({ email, password });
+          const encryptedPassword = await hashPassword(password);
+          await ctx.db.User.create({
+            email,
+            password: encryptedPassword,
+          });
+          ctx.body = "Signup Successful!";
           break;
       }
     } catch (error) {
