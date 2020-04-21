@@ -24,7 +24,7 @@ module.exports = {
   // find all company records
   async find(ctx) {
     try {
-      ctx.body = await ctx.db.Company.findAll();
+      ctx.body = await ctx.db.Company.findAll({ include: ctx.db.Job });
     } catch (error) {
       ctx.throw(500, error);
     }
