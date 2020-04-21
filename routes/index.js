@@ -15,6 +15,7 @@ router.put("/companies/:id", CompanyController.update);
 
 // jobs routes
 router.post("/jobs", JobController.create);
+router.get("/jobs", JobController.find);
 
 // application routes
 router.post("/applications", ApplicationController.create);

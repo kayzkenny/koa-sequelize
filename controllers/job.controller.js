@@ -18,4 +18,11 @@ module.exports = {
       ctx.throw(500, error);
     }
   },
+  async find(ctx) {
+    try {
+      ctx.body = await ctx.db.Job.findAll({ include: ctx.db.Candidate });
+    } catch (error) {
+      ctx.throw(500, error);
+    }
+  },
 };
