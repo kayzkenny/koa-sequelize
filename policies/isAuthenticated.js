@@ -15,7 +15,6 @@ module.exports = async (ctx, next) => {
     },
   });
 
-  //   user ? (ctx.state.user = user.id) : ctx.throw(401, "Unauthorized");
   if (user) {
     ctx.state.user = user.id;
     await next();

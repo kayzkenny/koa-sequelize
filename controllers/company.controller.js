@@ -14,7 +14,12 @@ module.exports = {
           break;
 
         default:
-          ctx.body = await ctx.db.Company.create({ name, city, address });
+          ctx.body = await ctx.db.Company.create({
+            name,
+            city,
+            address,
+            UserId: ctx.state.user,
+          });
           break;
       }
     } catch (error) {
@@ -24,7 +29,12 @@ module.exports = {
   // find all company records
   async find(ctx) {
     try {
-      ctx.body = await ctx.db.Company.findAll({ include: ctx.db.Job });
+      ctx.body = await ctx.db.Company.findAll({
+        where: {
+          UserId: ctx.state.user,
+        },
+        include: ctx.db.Job,
+      });
     } catch (error) {
       ctx.throw(500, error);
     }
